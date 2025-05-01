@@ -2,8 +2,8 @@
 
 ## Team
 
-- Name: Your Name
-- AID: A12345678
+- Name: Aakash Shivanandappa Gowda
+- AID: A20548984
 
 ## Self-Evaluation Checklist
 
