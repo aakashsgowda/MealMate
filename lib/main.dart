@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/meal_provider.dart';
-import 'widgets/bottom_nav.dart';
+import 'pages/splash_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MealMateApp extends StatelessWidget {
     return MaterialApp(
       title: 'MealMate',
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const BottomNavScaffold(),
+      home: const SplashScreen(),
     );
   }
 }

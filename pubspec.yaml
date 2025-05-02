@@ -29,6 +29,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # to add assets to the app, do something like this:
-  # assets: 
-  #   - assets/
+
+  assets:
+    # - assets/images/logo.png
+    - assets/images/splash_bg.jpg
