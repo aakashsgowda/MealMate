@@ -15,6 +15,7 @@ class Meal {
     required this.ingredients,
   });
 
+  /// Factory to create Meal from API JSON
   factory Meal.fromJson(Map<String, dynamic> json) {
     List<String> ingredients = [];
 
@@ -23,23 +24,24 @@ class Meal {
       final measure = json['strMeasure$i'];
       if (ingredient != null &&
           ingredient.toString().trim().isNotEmpty &&
-          ingredient != 'null') {
+          ingredient.toString() != 'null') {
         final formatted = (measure ?? '').toString().trim().isNotEmpty
             ? '$ingredient - $measure'
-            : ingredient;
+            : ingredient.toString();
         ingredients.add(formatted);
       }
     }
 
     return Meal(
-      id: json['idMeal'],
-      name: json['strMeal'],
-      thumbnailUrl: json['strMealThumb'],
-      instructions: json['strInstructions'] ?? '',
+      id: json['idMeal']?.toString() ?? '',
+      name: json['strMeal']?.toString() ?? '',
+      thumbnailUrl: json['strMealThumb']?.toString() ?? '',
+      instructions: json['strInstructions']?.toString() ?? '',
       ingredients: ingredients,
     );
   }
 
+  /// Convert to JSON string for storage
   String toJsonString() => jsonEncode({
         'id': id,
         'name': name,
@@ -48,13 +50,14 @@ class Meal {
         'ingredients': ingredients,
       });
 
+  /// Convert from JSON string (used in SharedPreferences)
   static Meal fromJsonString(String str) {
     final json = jsonDecode(str);
     return Meal(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      thumbnailUrl: json['thumbnailUrl'] ?? '',
-      instructions: json['instructions'] ?? '',
+      id: json['id']?.toString() ?? '',
+      name: json['name']?.toString() ?? '',
+      thumbnailUrl: json['thumbnailUrl']?.toString() ?? '',
+      instructions: json['instructions']?.toString() ?? '',
       ingredients: List<String>.from(json['ingredients'] ?? []),
     );
   }
