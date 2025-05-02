@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/meal_provider.dart';
 import '../widgets/meal_card.dart';
-import 'meal_detail_page.dart'; // ⬅️ Import the detail page
+import 'meal_detail_page.dart'; 
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -13,13 +13,14 @@ class FavoritesPage extends StatelessWidget {
     final favorites = provider.favorites;
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Favorites')),
       body: favorites.isEmpty
           ? const Center(child: Text('No favorite meals yet.'))
           : GridView.builder(
               padding: const EdgeInsets.all(12),
               itemCount: favorites.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3, // 3 meals per row
                 childAspectRatio: 0.9,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,

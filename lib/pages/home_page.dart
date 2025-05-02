@@ -26,71 +26,74 @@ class _HomePageState extends State<HomePage> {
     final provider = Provider.of<MealProvider>(context);
     final meals = provider.randomMeals;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MealMate'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Search for meals...',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    final query = _controller.text.trim();
-                    if (query.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => MealSearchResultsPage(query: query),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+    return Column(
+      children: [
+        // Search bar
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              hintText: 'Search for meals...',
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  final query = _controller.text.trim();
+                  if (query.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MealSearchResultsPage(query: query),
+                      ),
+                    );
+                  }
+                },
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),
         ),
-      ),
-      body: meals.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              padding: const EdgeInsets.all(12),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.9,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: meals.length,
-              itemBuilder: (context, index) {
-                final meal = meals[index];
-                return MealCard(
-                  meal: meal,
-                  onAdd: () {
-                    provider.addToPlanner(meal);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Added ${meal.name} to planner')),
+
+        // Meals Grid
+        Expanded(
+          child: meals.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : GridView.builder(
+                  padding: const EdgeInsets.all(12),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // 3 meals per row
+                    childAspectRatio: 0.8,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: meals.length,
+                  itemBuilder: (context, index) {
+                    final meal = meals[index];
+                    return MealCard(
+                      meal: meal,
+                      onAdd: () {
+                        provider.addToPlanner(meal);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Added ${meal.name} to planner')),
+                        );
+                      },
+                      onFavorite: () => provider.toggleFavorite(meal),
+                      isFavorite: provider.isFavorite(meal),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => MealDetailPage(meal: meal),
+                          ),
+                        );
+                      },
                     );
                   },
-                  onFavorite: () => provider.toggleFavorite(meal),
-                  isFavorite: provider.isFavorite(meal),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => MealDetailPage(meal: meal),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                ),
+        ),
+      ],
     );
   }
 }

@@ -33,7 +33,7 @@ class MealSearchResultsPage extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             itemCount: meals.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 3, //3 meals per row
               childAspectRatio: 0.9,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,

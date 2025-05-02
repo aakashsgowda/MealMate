@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../pages/home_page.dart';
 import '../pages/planner_page.dart';
 import '../pages/favorites_page.dart';
@@ -35,7 +36,18 @@ class _BottomNavScaffoldState extends State<BottomNavScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_titles[_selectedIndex])),
+      appBar: AppBar(
+  title: Text(
+    _titles[_selectedIndex],
+    style: GoogleFonts.pacifico( // 
+      fontSize: 26,
+      color: Colors.deepOrange,
+      letterSpacing: 1.2,
+    ),
+  ),
+  centerTitle: true,
+),
+
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
