@@ -66,11 +66,11 @@ work on this machine problem.
 5. What workflow is tested by your integration test?
 
    The integration test walks through the following flow:
-1. Launch the app and wait for random meals to load
-2. Tap on a meal card to view its details
-3. Add the meal to the planner
-4. Mark the meal as a favorite
-5. Navigate to the Favorites and Planner tabs to verify the meal is displayed correctly
+   1. Launch the app and wait for random meals to load
+   2. Tap on a meal card to view its details
+   3. Add the meal to the planner
+   4. Mark the meal as a favorite
+   5. Navigate to the Favorites and Planner tabs to verify the meal is displayed correctly
 
    This tests the core functionality I implemented: browsing, planning, and saving meals.
 ---
